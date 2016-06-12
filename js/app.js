@@ -8,14 +8,13 @@ function listFreeChamps() {
     if (API_KEY !== "") {
 
         $.ajax({
+            /*get the data*/
             url: 'https://na.api.pvp.net/api/lol/na/v1.2/champion?freeToPlay=true&api_key=' + API_KEY,
             type: 'GET',
             dataType: 'json',
-            data: {
-
             },
+            /*upon success, store into array, and assign value to html id's*/
             success: function (json) {
-                
                 championID = [json.champions[0].id,
                               json.champions[1].id,
                               json.champions[2].id,
@@ -28,11 +27,12 @@ function listFreeChamps() {
                               json.champions[9].id];
                 for(var i = 0; i < 10; i++)
                 {
-                document.getElementById("s"+(i+1)+"ID").innerHTML = championID[i];
+                    document.getElementById("s"+(i+1)+"ID").innerHTML = championID[i];
                 }
                 //JSON_Encoded = json;
                 //JSON_Decoded = JSON.stringify(json);
             },
+            /*otherwise show an error*/
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("error getting Summoner data!");
             }
