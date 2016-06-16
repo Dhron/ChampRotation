@@ -1,6 +1,3 @@
-var JSON_Encoded;
-var JSON_Decoded;
-
 function listFreeChamps() {
     var API_KEY = "";
     API_KEY = $("#theKey").val();
@@ -29,8 +26,6 @@ function listFreeChamps() {
                 {
                     document.getElementById("s"+(i+1)+"ID").innerHTML = championID[i];
                 }
-                //JSON_Encoded = json;
-                //JSON_Decoded = JSON.stringify(json);
             },
             /*otherwise show an error*/
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -40,10 +35,3 @@ function listFreeChamps() {
     } else {}
 }
 
-/*function encoded() {
-    alert(JSON_Encoded);
-}
-
-function decoded() {
-    alert(JSON_Decoded);
-}*/
