@@ -5,28 +5,27 @@ var app = express();
 var async= require('async');
 var request = require('request');
 
-// include Riot Api
+// API KEY
 var key ='RGAPI-849afe92-8a88-4c94-811b-b84b51a032c9';
+
 var data={};
 var testData={};
 // need to require our own db interface file
 
-var fs = require('fs');
-var http = require('http');
-
 //get champions (enter manually)
 app.get('/update',function(req,res){
-var str ='https://na1.api.riotgames.com/lol/static-data/v3/champions?api_key='+key;
+
+var str ='https://na1.api.riotgames.com/lol/static-data/v3/champions?api_key=' + key; //Champion API Call
 
 //honestly i dont really understand this that well
 async.waterfall([
   function(callback){
-  request(str,function(err,response,body){
-    //if request worked correctylu
+  request(str, function(err,response,body){
+    //if request worked correctly
     if (!err && response.statusCode=== 200){
       //store the returned data into a variable
-     var json =JSON.parse(body);
-     data=json;
+     var json = JSON.parse(body);
+     data = json;
      callback(null,data);
     }
     else {
@@ -38,41 +37,24 @@ async.waterfall([
     console.log(err);
     return;
   }
+    // this is only temporary to show data for testing
 
-
-// this is only temporary to show data for testing
-
-for( var x in data["data"]){
-
-testData.id =data["data"][x].id ;//id;
-testData.name=data['data'][x].name;
-
-console.log(testData);}
-
-//res.send(data);
-    //instead call a funtion that inserts the data into a db
-});
+    for( var x in data["data"]){
+    testData.id =data["data"][x].id ; //id;
+    testData.name=data['data'][x].name;
+    console.log(testData);}
+        //res.send(data);
+        //instead call a funtion that inserts the data into a db
+    });
 });
 
-//connecting to server
 
-var server = app.listen (8080,function(){
-  var host = server.address().address
-  var port =server.address().port
-  console.log("listening at http://%s:%s",host,port);
-});
+  app.use(express.static('../client')); //serve the client
+  
+  //connecting to server
 
-/*
-
-var server = http.createServer(function(req, res){
-  console.log('request was made' + req.url);
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  var myReadStream = fs.createReadStream('index.html', 'utf8');
-  myReadStream.pipe(res);
-
-});
-
-server.listen(3000, '127.0.0.1');
-console.log('listening on port 3000' + __dirname);
-*/
-
+  var server = app.listen (3000,function(){
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log("listening at http://%s:%s", host, port);
+  });
