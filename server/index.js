@@ -11,9 +11,12 @@ var data={};
 var testData={};
 // need to require our own db interface file
 
+var fs = require('fs');
+var http = require('http');
+
 //get champions (enter manually)
 app.get('/update',function(req,res){
-  var str ='https://na1.api.riotgames.com/lol/static-data/v3/champions?api_key='+key;
+var str ='https://na1.api.riotgames.com/lol/static-data/v3/champions?api_key='+key;
 
 //honestly i dont really understand this that well
 async.waterfall([
@@ -30,8 +33,7 @@ async.waterfall([
         console.log(err);
     }
   });
-}
-],function(err,data)  {
+}],function(err,data)  {
   if (err){
     console.log(err);
     return;
@@ -47,20 +49,30 @@ testData.name=data['data'][x].name;
 
 console.log(testData);}
 
-
-
-
-  res.send(data);
+//res.send(data);
     //instead call a funtion that inserts the data into a db
-
 });
 });
-
-
 
 //connecting to server
+
 var server = app.listen (8080,function(){
   var host = server.address().address
   var port =server.address().port
   console.log("listening at http://%s:%s",host,port);
 });
+
+/*
+
+var server = http.createServer(function(req, res){
+  console.log('request was made' + req.url);
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  var myReadStream = fs.createReadStream('index.html', 'utf8');
+  myReadStream.pipe(res);
+
+});
+
+server.listen(3000, '127.0.0.1');
+console.log('listening on port 3000' + __dirname);
+*/
+
