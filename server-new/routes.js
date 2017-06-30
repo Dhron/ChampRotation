@@ -5,22 +5,22 @@ const routes = require('express').Router();
 
 //API Functions
 
-var getSummonerData = function (req, res) {
-    var data = req.body;
-    var champList = riot.champs(req, res);
-    res.send(champList);
+var getSummonerData = function(req, res) {
+    riot.champs().then((data) => {
+        var champList = data;
+        res.send(champList);
+        return;
+    }).catch((reason) => {
+        this.body = reason;
+        this.status = 400;
+    });
 }
 
 var getPros = function (req, res) {
-
+    data = riot.champs(req, res);
+    console.log(data);
     res.send(data);
 }
-
-
-
-
-
-
 
 // API ENDPOINTS
 
