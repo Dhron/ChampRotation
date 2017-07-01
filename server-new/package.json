@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"  
-},
+    "start": "nodemon index.js"
+  },
   "keywords": [],
   "author": "Dhron Joshi",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "morgan": "^1.8.2"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
