@@ -1,7 +1,7 @@
 var riot = require('./functions');
 var config = require('./config');
-var LogRoutes = require('express-log-routes');
 
+var LogRoutes = require('express-log-routes');
 var logRoutes = new LogRoutes();
 
 const routes = require('express').Router();
