@@ -2,9 +2,14 @@
 Using the League of Legends API to display the free champs of the week. 
 This is in development and not usable at this point.
 
-To implement:  
-  
-Make page cycle through free champions images on background.  
-Upon transition, display stats for that corresponding champion.  
-While inactive, page transitions according to set timer; otherwise, timer halts while user is active.  
- 
+## To implement:  
+
+### Back-end  
+- Create database schema for champions
+- Make api calls to serve champion name and image url to front end
+
+### Front-end
+
+- Expandable list structure using React
+- Navigation, header, footer
+

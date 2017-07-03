@@ -22,3 +22,4 @@ var championSchema = new mongoose.Schema({
     }
 });
 
+module.exports = mongoose.model("Champions", championSchema);

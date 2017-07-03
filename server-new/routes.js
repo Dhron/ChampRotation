@@ -9,8 +9,8 @@ const routes = require('express').Router();
 
 //API Functions
 
-var getSummonerData = function(req, res) {
-    riot.champs().then((data) => {
+var getFreeChamps = function(req, res) {
+    riot.freeChamps().then((data) => {
         var champList = data;
         res.send(champList).status(200);
         return;
@@ -18,6 +18,18 @@ var getSummonerData = function(req, res) {
         this.body = reason;
         this.status = 400;
     });
+}
+
+var getChampData = function(req, res) {
+	riot.allChamps().then((data) => {
+		var champData = data;
+		res.send(champData).status(200);
+		return;
+	}).catch((reason) => {
+		this.body = reason;
+		this.status = 400;
+	});
+
 }
 
 var getPros = function (req, res) {
@@ -28,7 +40,9 @@ var getPros = function (req, res) {
 
 ////////////////////////////////////////
 
-routes.get('/', getSummonerData);
+
+routes.get('/free', getFreeChamps);
+routes.get('/champs', getChampData);
 routes.get('/pros', getPros);
 
 ////////////////////////////////////////

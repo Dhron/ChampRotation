@@ -4,9 +4,9 @@ var config = require('./config');
 
 var functions = {};
 
-functions.champs = function() { 
+functions.freeChamps = function() { 
 return new Promise( function(resolve, reject) {
-        request(config.riot.champions, function (err, response, body) {
+        request(config.riot.freeChampions, function (err, response, body) {
             if (!err && response.statusCode === 200){
                 var champData = JSON.parse(body);
                 data = champData;
@@ -17,6 +17,26 @@ return new Promise( function(resolve, reject) {
             }
         });
     });
+}
+
+functions.allChamps = function() {
+return new Promise( function(resolve, reject) {
+		request(config.riot.champData, function (err, response, body) {
+			if(!err && response.statusCode === 200) {
+				var staticData = JSON.parse(body);
+				data = staticData;
+				resolve(data);
+			}
+			else {
+				reject(err);
+			}
+		});
+	});
+}
+
+functions.populateDB = function() {
+	//want to populate champions collection
+	//with image url, champID, champ name etc.	
 }
 
 
