@@ -6,17 +6,22 @@ mongoose.connect('mongodb://localhost/champsDB');
 //schema for storing champions
 var championSchema = new mongoose.Schema({
     'id': {
-        type: int,
+        type: Number,
+        index: true,
+        required: true
+    },
+    'name': {
+        type: String,
         index: true,
         required: true
     },
     'splashURL': {
-        type: string,
+        type: String,
         index: true,
         required: true
     },
     'champType': {
-        type: string,
+        type: [String],
         index: true,
         required: true
     }

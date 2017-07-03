@@ -49,7 +49,7 @@ routes.get('/pros', getPros);
 
 logRoutes({
   router: routes,
-  baseUri: 'localhost:3000' // <-- you can also override initial configurations 
+  baseUri: 'localhost:3000' 
 });
 
 module.exports = routes;
