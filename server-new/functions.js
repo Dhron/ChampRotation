@@ -1,8 +1,7 @@
-//For making asyc requests
-var async = require('async');
+//for making API calls
 var request = require('request');
-
 var config = require('./config');
+
 var functions = {};
 
 functions.champs = function() { 
