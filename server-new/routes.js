@@ -36,6 +36,18 @@ var getPros = function (req, res) {
     res.send("hello").status(200);
 }
 
+var getChampURL = function (req, res) {
+    var champNames = req.headers.champs; //maybe? need to check
+    riot.champURLS(champNames).then((data) => {
+       var urls = data;
+       res.send(urls).status(200);
+       return;
+    }).catch((reason) => {
+        this.body = reason;
+        this.status = 400;
+    });
+}
+
 // API ENDPOINTS
 
 ////////////////////////////////////////
@@ -44,6 +56,7 @@ var getPros = function (req, res) {
 routes.get('/free', getFreeChamps);
 routes.get('/champs', getChampData);
 routes.get('/pros', getPros);
+routes.get('/urls', getChampURL);
 
 ////////////////////////////////////////
 
