@@ -62,7 +62,7 @@ routes.get('/urls', getChampURL);
 
 logRoutes({
   router: routes,
-  baseUri: 'localhost:3000' 
+  baseUri: config.host + ':' + config.port; 
 });
 
 module.exports = routes;

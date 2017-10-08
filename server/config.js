@@ -1,6 +1,10 @@
 var config = {};
 var api = require('./api');
 
+//host information
+config.host = 'localhost';
+config.port = '3001';
+
 //db information
 config.mongodb = {};
 config.mongodb.host = 'localhost';

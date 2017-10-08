@@ -7,13 +7,36 @@ var Champion = require('./models/Champions');
 
 var functions = {};
 
+//Retrieves free champs from the db
+//Gives all champ description data
+functions.dbFreeChamps = function(champs) {
+    var freeChamps = [];
+
+    return new Promise(function(resolve, reject) {
+        var champPromises = champs.map((champ) => {
+        var filter = {'id': champ.id };
+        var query = Champion.findOne(filter);
+        return query.then((dbChamp) => {
+            freeChamps.push(dbChamp);
+        });
+    });
+
+    Promise.all(champPromises).then(function(){
+        resolve(freeChamps);
+    });
+});
+
+}
+
+//Wrapper function for functions.dbFreeChamps
 functions.freeChamps = function() { 
 return new Promise( function(resolve, reject) {
     request(config.riot.freeChampions, function (err, response, body) {
             if (!err && response.statusCode === 200){
                 var champData = JSON.parse(body);
                 data = champData;
-                resolve(data);
+                var ret = functions.dbFreeChamps(data.champions);
+                resolve(ret);
             }
             else {
                 reject(err);
@@ -37,6 +60,8 @@ return new Promise( function(resolve, reject) {
 	});
 }
 
+//Needs to be written as an array of promises
+//and then resolved at the end
 functions.champURLS = function(names) {
 var urls = [];
 return new Promise( function(resolve, reject){
@@ -47,9 +72,7 @@ return new Promise( function(resolve, reject){
             Champion.findOne(filter, function (err, champ) {
                 if(err) { reject(err); }
                 else{
-                    console.log(champ);
                     urls.push(champ.splashURL);
-                    console.log(urls);
                 }
             });
         }
@@ -67,8 +90,7 @@ functions.updateChamp = function(filter, update) {
 
 //TEST
 //functions.champURLS(["Annie", "Fiora"]);
-
-/* DO NOT RUN
+/*
 functions.populateDB = function(){
     functions.allChamps().then((data) => {
     var result = data.data;
@@ -77,14 +99,17 @@ functions.populateDB = function(){
         var champ = new Champion({
             id: apiChamp.id,
             name: apiChamp.name,
+            title: apiChamp.title,
             splashURL: "www.champrotation.com/assets/img/" + apiChamp.name + ".jpg",
-            champType: apiChamp.tags
+            champType: apiChamp.tags,
+            desc: apiChamp.blurb
         });              
         champ.save((err) => {
             if(err) {
                 throw err;
             }
-            console.log(champ.name + ' saved successfully in the database!');
+        console.log(champ);
+        console.log(champ.name + ' saved successfully in the database!');
         });
     } 
   });
