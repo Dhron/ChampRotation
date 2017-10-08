@@ -1,9 +1,10 @@
 var mongoose = require('mongoose');
 
 //connect to a local instance of the db which stores champ splashes
-mongoose.connect('mongodb://localhost/champsDB');
+//mongoose.connect('mongodb://localhost/champsDB');
 
 //schema for storing champions
+//We can add more fields as needed; just need to run function to update DB
 var championSchema = new mongoose.Schema({
     'id': {
         type: Number,
