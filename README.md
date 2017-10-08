@@ -13,3 +13,21 @@ This is in development and not usable at this point.
 - Expandable list structure using React
 - Navigation, header, footer
 
+## Quick Start Up:
+
+```
+ cd ChampRotation
+ cd server
+ npm install
+ npm start
+```
+
+Then in a new terminal tab:
+
+```
+cd client
+npm install
+yarn start
+```
+
+
