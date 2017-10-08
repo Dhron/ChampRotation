@@ -22,6 +22,21 @@ This is in development and not usable at this point.
  npm start
 ```
 
+### Create Riot Game API Key
+
+Make in api.js file in server:
+```
+var api = {}
+
+api.key = 'YOUR_API_KEY'; 
+
+
+///////////////////////////////////
+
+module.exports = api;
+
+```
+
 Then in a new terminal tab:
 
 ```
@@ -29,5 +44,7 @@ cd client
 npm install
 yarn start
 ```
+
+Note: to get MongoDB running, you need to install, and remove the comment in the models/Champions.js folder
 
 
