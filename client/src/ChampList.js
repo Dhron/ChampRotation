@@ -4,14 +4,11 @@ import 'antd/dist/antd.css';
 
 import Actions from './Actions';
 
-const Panel = Collapse.Panel;
+//data is the json data for free champs
+import data from './Actions'
 
-const text = `
-	There have always been those within Noxus who did not 
-	agree with the evils perpetrated by the Noxian High Command. 
-	The High Command had just put down a coup attempt from the self-proclaimed 
-	Crown Prince Raschallion, and a crackdown on any form of...
-`;
+
+const Panel = Collapse.Panel;
 
 const customPanelStyle = {
   background: '#f7f7f7',
@@ -21,24 +18,27 @@ const customPanelStyle = {
   overflow: 'hidden',
 };
 
-export default class ChampList extends Component {
-	initialState(){
-		return{
-			data: {}
-		}
-	}
-
-	getFreeChamps(){
-
-	}
-
-	render(){
+function genPanel(item){
 		return(
 			<Collapse bordered={false} defaultActiveKey={['0']}>
-			    <Panel header="Annie" key="1" style={customPanelStyle}>
-			      <p>{text}</p>
-			    </Panel>
+				<Panel header={item.name} key={item.id} style={customPanelStyle}>
+	 				<p>{item.desc}</p>
+ 				</Panel>
 			</Collapse>
 		);
-	}
+}
+
+function iterateData(data){
+	return data.map(genPanel);
+}
+
+export default class ChampList extends Component {
+render (){
+	return(
+		<div>
+         {iterateData(data)}
+		</div>
+	);
+}
+
 }
